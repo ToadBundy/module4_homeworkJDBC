@@ -6,4 +6,5 @@ WITH temp_table AS(
 )
     SELECT temp_table.user_id, name, UserCreatedAt, FirstPost, COUNT(comment.id) AS comments
         FROM temp_table LEFT JOIN comment ON temp_table.user_id = comment.user_id
+        WHERE temp_table.user_id = %s
         GROUP BY temp_table.user_id, name, UserCreatedAt,FirstPost;

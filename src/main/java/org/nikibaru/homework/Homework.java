@@ -25,15 +25,15 @@ public class Homework {
             insertNewUser(statement, "Ivan", "Ivan007");
             insertNewUser(statement, "Peter", "Peter007");
             insertNewUser(statement, "Stan", "Stan007");
-            insertNewPost(statement, "Welcome to the club buddy!", "1");
-            insertNewPost(statement, "Here we are!", "2");
-            insertNewComment(statement, "Only for 300 bucks!", "1","3");
-            insertNewComment(statement, "WOW", "1","2");
+            insertNewPost(statement, "Ivans post", "1");
+            insertNewPost(statement, "Peters post", "2");
+            insertNewComment(statement, "Stans comment", "1","3");
+            insertNewComment(statement, "Peters comment", "1","2");
             insertNewLike(statement, "2",null,"1");
 
 
             getStats(statement);
-            getUserInfo(statement, "1");
+            getUserInfo(statement, "3");
 
         }catch (SQLException e){
             System.out.println("Connection failed!");
@@ -92,13 +92,15 @@ public class Homework {
     }
 
     public static void getUserInfo(Statement statement, String user_id) throws FileNotFoundException, SQLException {
+        Formatter form = new Formatter();
         String command = readSqlFile("src/main/resources/homework2_scripts/get_user_info.sql");
+        command = String.valueOf(form.format(command,user_id));
         ResultSet resultSet = statement.executeQuery(command);
         if(!resultSet.next()){
             System.out.println("Пользователь не найден");
             throw new FileNotFoundException("Oops!");
         }
-        Formatter form = new Formatter();
+        form = new Formatter();
         form.format("User Info:" +
                         "\n\tName: %s " +
                         "\n\tUserCreatedAt %s " +
